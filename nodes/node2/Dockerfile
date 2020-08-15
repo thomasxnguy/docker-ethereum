@@ -4,6 +4,7 @@ WORKDIR /root/ethereum
 
 COPY password.txt static-nodes.json* /root/ethereum/
 COPY keystore /root/ethereum/keystore
+COPY geth /root/ethereum/geth
 
 ENTRYPOINT []
 

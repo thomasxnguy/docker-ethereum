@@ -2,7 +2,7 @@
 
 Provide a docker-compose allowing to quickly run a private Ethereum network as well as a monitoring dashboard for quick development.
 
-I use the official golang implementation [Geth](https://hub.docker.com/r/ethereum/client-go/) as a base image for the node.
+I used the official golang implementation [Geth](https://hub.docker.com/r/ethereum/client-go/) as a base image for the node.
 
 Genesis file has been generated using puppeth with POA(Proof of Authority) consensus engine.
 
@@ -28,7 +28,7 @@ $ docker logs geth_node1 2>&1 | grep "enode:"
 $ docker logs geth_node2 2>&1 | grep "enode:"
 ```
 
-Each node will persisting their data in their own folder /nodes/nodeXX/geth so that data won't be lose when restarting.
+Each node won't be persisting data on disk. If you need to, uncomment the section in the docker-compose.yml
 
 
 ## Monitoring

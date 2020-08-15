@@ -9,8 +9,9 @@ services:
     ports:
       - "8501:8501"
       - "30311:30311"
-    volumes:
-      - ./nodes/node1/geth:/root/ethereum/geth
+  # Uncomment if you need to persist the data on disk
+  #     volumes:
+  #    - ./nodes/node1/geth:/root/ethereum/geth
     command: >
       geth --datadir /root/ethereum --syncmode 'full' --port 30311
       --rpc --rpcaddr '0.0.0.0' --rpcport 8501 --rpccorsdomain '*' --rpcvhosts '*'
@@ -29,8 +30,9 @@ services:
     ports:
       - "8502:8502"
       - "30312:30312"
-    volumes:
-      - ./nodes/node2/geth:/root/ethereum/geth
+    # Uncomment if you need to persist the data on disk
+    #     volumes:
+    #    - ./nodes/node2/geth:/root/ethereum/geth      
     command: >
       geth --datadir /root/ethereum --syncmode 'full' --port 30312
       --rpc --rpcaddr '0.0.0.0' --rpcport 8502 --rpccorsdomain '*' --rpcvhosts '*'
