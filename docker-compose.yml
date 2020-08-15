@@ -1,0 +1,11 @@
+version: '2'
+services:
+  geth:
+    image: ethereum/client-go
+    command: init --datadir data /genesis.json
+    volumes:
+      - ./genesis.json:/genesis.json:ro
+    ports:
+      - "30303:30303"
+      - "30303:30303/udp"
+      - "8545:8545"
