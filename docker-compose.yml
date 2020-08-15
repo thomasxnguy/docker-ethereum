@@ -1,11 +1,43 @@
-version: '2'
+version: '3.4'
+
 services:
-  geth:
-    image: ethereum/client-go
-    command: init --datadir data /genesis.json
-    volumes:
-      - ./genesis.json:/genesis.json:ro
+  node1:
+    build:
+      context: ./nodes/node1
+      dockerfile: Dockerfile
+    container_name: geth_node1
     ports:
-      - "30303:30303"
-      - "30303:30303/udp"
-      - "8545:8545"
+      - "8501:8501"
+      - "30311:30311"
+    volumes:
+      - ./nodes/node1/geth:/root/ethereum/geth
+    command: >
+      geth --datadir /root/ethereum --syncmode 'full' --port 30311
+      --rpc --rpcaddr '0.0.0.0' --rpcport 8501 --rpccorsdomain '*' --rpcvhosts '*'
+      --rpcapi 'eth,web3,personal,net'
+      --ws --wsaddr "0.0.0.0" --wsapi "eth,web3,personal,net" --wsorigins "*"
+      --networkid 32414
+      --gasprice '0'
+      --unlock 0
+      --password password.txt
+      --mine --allow-insecure-unlock --nodiscover
+  node2:
+    build:
+      context: ./nodes/node2
+      dockerfile: Dockerfile
+    container_name: geth_node2
+    ports:
+      - "8502:8502"
+      - "30312:30312"
+    volumes:
+      - ./nodes/node2/geth:/root/ethereum/geth
+    command: >
+      geth --datadir /root/ethereum --syncmode 'full' --port 30312
+      --rpc --rpcaddr '0.0.0.0' --rpcport 8502 --rpccorsdomain '*' --rpcvhosts '*'
+      --rpcapi 'eth,web3,personal,net'
+      --ws --wsaddr "0.0.0.0" --wsapi "eth,web3,personal,net" --wsorigins "*"
+      --networkid 32414
+      --gasprice '0'
+      --unlock 0
+      --password password.txt
+      --mine --allow-insecure-unlock --nodiscover
