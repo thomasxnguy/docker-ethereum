@@ -32,7 +32,7 @@ services:
       - "30312:30312"
     # Uncomment if you need to persist the data on disk
     #     volumes:
-    #    - ./nodes/node2/geth:/root/ethereum/geth      
+    #    - ./nodes/node2/geth:/root/ethereum/geth
     command: >
       geth --datadir /root/ethereum --syncmode 'full' --port 30312
       --rpc --rpcaddr '0.0.0.0' --rpcport 8502 --rpccorsdomain '*' --rpcvhosts '*'
@@ -43,3 +43,21 @@ services:
       --unlock 0
       --password password.txt
       --mine --allow-insecure-unlock --nodiscover
+  dashboard:
+    build:
+      context: ./monitoring/dashboard
+      dockerfile: Dockerfile
+    container_name: dashboard
+    environment:
+      - WS_SECRET=eth-net-stats-secret
+    ports:
+      - "3000:3000"
+  ethnet:
+    build:
+      context: ./monitoring/api
+      dockerfile: Dockerfile
+    links:
+      - dashboard
+    container_name: ethnet
+    volumes:
+      - ./monitoring/api/app.json:/home/ethnetintel/eth-net-intelligence-api/app.json

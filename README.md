@@ -33,4 +33,4 @@ Each node won't be persisting data on disk. If you need to, uncomment the sectio
 
 ## Monitoring
 
-[WIP]
+To access monitoring dashboard, visit http://localhost:3000/
